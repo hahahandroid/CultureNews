@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_section_filter_labels">
+        <item>@string/settings_section_filter_all_label</item>
+        <item>@string/settings_section_filter_books_label</item>
+        <item>@string/settings_section_filter_art_n_design_label</item>
+
+
+    </string-array>
+
+    <string-array name="settings_section_filter_values">
+        <item>@string/settings_section_filter_all_value</item>
+        <item>@string/settings_section_filter_books_value</item>
+        <item>@string/settings_section_filter_art_n_design_value</item>
+    </string-array>
+</resources>

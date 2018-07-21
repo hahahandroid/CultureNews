@@ -3,4 +3,24 @@
     <string name="empty_state">No news found</string>
     <string name="no_internet">No Internet Connection</string>
     <string name="additional_info"><xliff:g example="Eva Wiseman" id="author">%1$s</xliff:g> on <xliff:g example="Jul 21, 2018 10:00" id="date">%2$s</xliff:g></string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+
+    <string name="settings_article_limit_label">Article Quantity</string>
+    <string name="settings_article_limit_key" translatable="false">article_limit</string>
+    <string name="settings_article_limit_default" translatable="false">10</string>
+
+    <string name="settings_section_filter_label">Section Filter</string>
+    <string name="settings_section_filter_key" translatable="false">section_ilter</string>
+    <string name="settings_section_filter_default" translatable="false">@string/settings_section_filter_all_value</string>
+
+    <string name="settings_section_filter_all_label">All</string>
+    <string name="settings_section_filter_all_value" translatable="false">all</string>
+
+    <string name="settings_section_filter_books_label">Books</string>
+    <string name="settings_section_filter_books_value" translatable="false">books</string>
+
+    <string name="settings_section_filter_art_n_design_label">Art and design</string>
+    <string name="settings_section_filter_art_n_design_value" translatable="false">artanddesign</string>
 </resources>

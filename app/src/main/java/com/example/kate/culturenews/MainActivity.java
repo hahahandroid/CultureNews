@@ -2,13 +2,17 @@ package com.example.kate.culturenews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,7 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
     private static final int LOADER_ID = 1;
-    private static final String REQUEST_URL = "https://content.guardianapis.com/search?tag=culture/culture&page-size=50&show-fields=byline&api-key=6f5c4081-c8c0-4492-a38d-f326e599f574";
+    private static final String REQUEST_URL = "https://content.guardianapis.com/search?tag=culture/culture&show-fields=byline&api-key=6f5c4081-c8c0-4492-a38d-f326e599f574";
 
     private ArticleAdapter adapter;
     private TextView emptyView;
@@ -67,8 +71,48 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public Loader<List<Article>> onCreateLoader(int id, Bundle args) {
-        return new ArticleLoader(this, REQUEST_URL);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String articleLimit = sharedPrefs.getString(
+                getString(R.string.settings_article_limit_key),
+                getString(R.string.settings_article_limit_default));
+
+        String sectionFilter = sharedPrefs.getString(
+                getString(R.string.settings_section_filter_key),
+                getString(R.string.settings_section_filter_default)
+        );
+
+        Uri baseUri = Uri.parse(REQUEST_URL);
+
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("page-size", articleLimit);
+
+        if (sectionFilter != getString(R.string.settings_section_filter_all_value)) {
+            uriBuilder.appendQueryParameter("section", sectionFilter);
+        }
+
+        return new ArticleLoader(this, uriBuilder.toString());
+
     }
 
     @Override
